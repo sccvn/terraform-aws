@@ -7,6 +7,7 @@ variable "instance_type" {
 }
 variable "key_name" {
   type = string
+  default = "kevinnguyen-fso-key"
 }
 
 variable "availability_zones" {
@@ -15,6 +16,7 @@ variable "availability_zones" {
 
 variable "workstation_ip" {
   type = string
+  default = "42.116.254.219/32"
 }
 
 variable "amis" {
