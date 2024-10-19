@@ -10,6 +10,7 @@ terraform {
 
 provider "aws" {
   region = "us-west-2"
+  profile = "kevinnguyen-fso-lab"
 }
 
 resource "aws_vpc" "main" {
@@ -108,6 +109,11 @@ resource "aws_security_group" "webserver" {
   }
 }
 
+resource "aws_key_pair" "my-key-pair" {
+  key_name                = var.key_name
+  public_key              = file("~/.ssh/authorized_keys_1024bit.pub")
+}
+
 resource "aws_instance" "web" {
   ami                    = var.amis[var.region]
   instance_type          = var.instance_type
@@ -125,7 +131,7 @@ apt-get -y install nginx
 
 cd /var/www/html
 rm *.html
-git clone https://github.com/cloudacademy/webgl-globe/ .
+git clone https://github.com/sccvn-devops/webgl-globe/ .
 cp -a src/* .
 rm -rf {.git,*.md,src,conf.d,docs,Dockerfile,index.nginx-debian.html}
 
